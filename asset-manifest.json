@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/timekeeper/static/css/main.073c9b0a.css",
-    "main.js": "/timekeeper/static/js/main.1ae75294.js",
+    "main.css": "/timekeeper/static/css/main.e45598c4.css",
+    "main.js": "/timekeeper/static/js/main.e262a91d.js",
     "static/js/787.28cb0dcd.chunk.js": "/timekeeper/static/js/787.28cb0dcd.chunk.js",
-    "static/media/logo.svg": "/timekeeper/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/timekeeper/index.html",
-    "main.073c9b0a.css.map": "/timekeeper/static/css/main.073c9b0a.css.map",
-    "main.1ae75294.js.map": "/timekeeper/static/js/main.1ae75294.js.map",
+    "static/media/font-awesome.less": "/timekeeper/static/media/font-awesome.ab44c36e261fb2fce05e.less",
+    "main.e45598c4.css.map": "/timekeeper/static/css/main.e45598c4.css.map",
+    "main.e262a91d.js.map": "/timekeeper/static/js/main.e262a91d.js.map",
     "787.28cb0dcd.chunk.js.map": "/timekeeper/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.1ae75294.js"
+    "static/css/main.e45598c4.css",
+    "static/js/main.e262a91d.js"
   ]
 }
