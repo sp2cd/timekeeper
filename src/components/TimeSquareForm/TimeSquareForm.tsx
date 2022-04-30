@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { StartTimeField } from '../StartTimeField/StartTimeField';
 import { TimeSquareFormButton } from '../TimeSquareFormButton/TimeSquareFormButton';
 import _ from 'lodash';
+import { TimeUtils } from '../../util/TimeUtils';
 
 export interface TimeSquareFormProps {
 
@@ -24,7 +25,7 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
 
     const isValidTime = (timeString: string) => {
         console.log('validating time...');
-        return true;
+        return TimeUtils.isValid24HourHHMMSS(timeString) || TimeUtils.isValid12HourHHMMSS(timeString);
     }
 
     return (
