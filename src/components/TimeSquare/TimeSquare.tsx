@@ -3,9 +3,6 @@ import { TimeSquareForm } from "../TimeSquareForm/TimeSquareForm";
 import { TimeSquareFormButton } from "../TimeSquareFormButton/TimeSquareFormButton";
 
 export function TimeSquare({ ...props }) {
-    const handleOnClick = () => {
-
-    }
     return (
         <>
             <div
@@ -23,10 +20,6 @@ export function TimeSquare({ ...props }) {
                 }}
             >
                 <TimeSquareForm></TimeSquareForm>
-                {/* <TimeSquareFormButton
-                    onClick={handleOnClick}
-                ></TimeSquareFormButton> */}
-               
             </div>
         </>
     )

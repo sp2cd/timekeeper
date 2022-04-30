@@ -1,24 +1,40 @@
 import { Field, Form, Formik } from 'formik';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { StartTimeField } from '../StartTimeField/StartTimeField';
 import { TimeSquareFormButton } from '../TimeSquareFormButton/TimeSquareFormButton';
+import _ from 'lodash';
 
 export interface TimeSquareFormProps {
 
 }
 export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
-    const handleOnClick = () => {
-
+    const [started, setStarted] = useState<boolean>(false);
+    const formikOnSubmit = (values: any, actions: any) => {
+        setStarted(true);
     }
+
+    const formikValidate = (values: any) => {
+        const errorObject = {};
+        if (!isValidTime(_.get(values, 'startTime', ''))) {
+            _.set(errorObject, 'startTime', 'Start time is not a valid time.');
+        }
+        return errorObject;
+    }
+
+    const isValidTime = (timeString: string) => {
+        console.log('validating time...');
+        return true;
+    }
+
     return (
         <>
             <Formik
                 initialValues={{ name: '', startTime: '', elapsedTime: '' }}
-                onSubmit={(values, actions) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        actions.setSubmitting(false);
-                    }, 1000);
-                }}
+                onSubmit={formikOnSubmit}
+                validate={formikValidate}
+                validateOnChange
+                enableReinitialize
             >
                 {props => (
                     <Form>
@@ -32,35 +48,13 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
                                 color: 'white'
                             }}
                         />
-                        <Field
+                        <StartTimeField
                             name="startTime"
                             style={{
                                 textAlign: 'center'
                             }}
-                        >
-                            {({
-                                // @ts-ignore
-                                field, // { name, value, onChange, onBlur }
-                                // @ts-ignore
-                                form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-                                // @ts-ignore
-                                meta,
-                            }) => (
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder="Start time"
-                                        style={{
-                                            textAlign: 'center'
-                                        }}
-                                        {...field}
-                                    />
-                                    {meta.touched && meta.error && (
-                                        <div className="error">{meta.error}</div>
-                                    )}
-                                </div>
-                            )}
-                        </Field>
+                        ></StartTimeField>
+                        
                         <Field
                             disabled
                             name="elapsedTime"
@@ -71,9 +65,9 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
                                 fontSize: '2.5em'
                             }}
                         />
-                        {/* <Button type="submit">Update</Button> */}
                         <TimeSquareFormButton
-                            onClick={handleOnClick}
+                            started={started}
+                            // onClick={handleOnClick}
                         ></TimeSquareFormButton>
                     </Form>
                 )}
