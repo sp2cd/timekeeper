@@ -19,7 +19,6 @@ export function MainComponent({...props}: MainComponentProps) {
             <Row>
                 <Col>
                     <TimeSquare></TimeSquare>
-                    
                 </Col>
             </Row>
         </>

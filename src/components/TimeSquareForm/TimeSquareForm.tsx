@@ -1,11 +1,10 @@
 import { Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import { StartTimeField } from '../StartTimeField/StartTimeField';
 import { TimeSquareFormButton } from '../TimeSquareFormButton/TimeSquareFormButton';
 import _ from 'lodash';
 import { TimeUtils } from '../../util/TimeUtils';
-import { StringUtils } from '../../util/StringUtils';
+import { TimeKeeper } from '../TimeKeeper/TimeKeeper';
 
 export interface TimeSquareFormValues {
     name: string;
@@ -17,13 +16,15 @@ export interface TimeSquareFormProps {
 }
 export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
     const [started, setStarted] = useState<boolean>(false);
+    const [countFrom, setCountFrom] = useState<Date>(new Date());
+
     const formikOnSubmit = (values: TimeSquareFormValues, actions: any) => {
         setStarted(true);
         console.log('Starting the count up!', values.startTime);
         const { hours, minutes } = TimeUtils.parseTimeString(values.startTime)
-        var today = new Date();
-        today.setHours(hours!, minutes!);
-        console.log('DateTime:', today);
+        var start = new Date();
+        start.setHours(hours!, minutes!);
+        setCountFrom(start);
     }
 
     const formikValidate = (values: TimeSquareFormValues) => {
@@ -38,9 +39,12 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
     }
 
     const isValidTime = (timeString: string) => {
-        console.log('validating time...');
         return TimeUtils.isValid24HourHHMMSS(timeString) || TimeUtils.isValid12HourHHMMSS(timeString);
     }
+
+    useEffect(() => {
+
+    }, [countFrom]);
 
     return (
         <>
@@ -55,12 +59,12 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
                     <Form>
                         <Field
                             name="name"
-                            placeholder="Give me a name..."
+                            placeholder="Title"
                             style={{
                                 textAlign: 'center',
                                 fontWeight: '600',
                                 backgroundColor: '#3B5998',
-                                color: 'white'
+                                color: 'white',
                             }}
                         />
                         <StartTimeField
@@ -69,8 +73,10 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
                                 textAlign: 'center'
                             }}
                         ></StartTimeField>
-                        
-                        <Field
+                        <TimeKeeper
+                            startCountingFromThisDate={countFrom}
+                        />
+                        {/* <Field
                             disabled
                             name="elapsedTime"
                             placeholder="00:00:00"
@@ -79,10 +85,10 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
                                 textAlign: 'center',
                                 fontSize: '2.5em'
                             }}
-                        />
+                        /> */}
                         <TimeSquareFormButton
                             started={started}
-                            // onClick={handleOnClick}
+                        // onClick={handleOnClick}
                         ></TimeSquareFormButton>
                     </Form>
                 )}

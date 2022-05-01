@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.time-square {
+  border-color: red;
+  border: 2px solid;
+  border-radius: 0.5em;
+}

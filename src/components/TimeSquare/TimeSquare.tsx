@@ -1,24 +1,25 @@
 import { Button, Form } from "react-bootstrap";
+import { TimeKeeper } from "../TimeKeeper/TimeKeeper";
 import { TimeSquareForm } from "../TimeSquareForm/TimeSquareForm";
-import { TimeSquareFormButton } from "../TimeSquareFormButton/TimeSquareFormButton";
 
 export function TimeSquare({ ...props }) {
     return (
         <>
             <div
                 style={{
-                    height: '200px',
-                    width: '200px',
+                    height: '8em',
+                    width: '8em',
                     backgroundColor: 'white',
                     color: 'black',
-                    borderRadius: '0.25em',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    // overflow: 'hidden',
+                    overflow: 'hidden',
                     alignItems: 'center'
                 }}
+                className={'time-square'}
             >
+                {/* @ts-ignore */}
                 <TimeSquareForm></TimeSquareForm>
             </div>
         </>
