@@ -49,7 +49,7 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
     return (
         <>
             <Formik
-                initialValues={{ name: '', startTime: '', elapsedTime: '' } as TimeSquareFormValues}
+                initialValues={{ name: '', startTime: new Date().toString(), elapsedTime: '' } as TimeSquareFormValues}
                 onSubmit={formikOnSubmit}
                 validate={formikValidate}
                 validateOnChange

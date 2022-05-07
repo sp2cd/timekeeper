@@ -14,7 +14,6 @@ export function TimeKeeper({ startCountingFromThisDate, ...props }: TimeKeeperPr
         };
     }, []);
 
-    // TODO - almost there...
     const formatTime = (secs: number) => {
         let hours = Math.floor(secs / 3600);
         let minutes = Math.floor(secs / 60) % 60;

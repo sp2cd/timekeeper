@@ -6,13 +6,24 @@ export interface StartTimeFieldProps {
 }
 
 export function StartTimeField({ name, style, ...props }: StartTimeFieldProps) {
-    // const [input, meta, helper] = useField(name);
+//     const [input, meta, helper] = useField(name);
     const handleOnKeyUp = (e: any) => {
         console.log('on key up:', e.target.value);
     }
     const handleOnChange = (e: any) => {
         console.log('on change:', e);
     }
+
+//     const [time, setTime] = useState(Date.now());
+//
+//     useEffect(() => {
+//         const interval = setInterval(() => setTime(Date.now()), 1000);
+//         return () => {
+//             clearInterval(interval);
+//         };
+//     }, []);
+
+
     return (
         <>
             <div>
