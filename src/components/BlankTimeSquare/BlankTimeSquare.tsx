@@ -1,13 +1,7 @@
-import { Button, CloseButton, Form } from "react-bootstrap";
-import { TimeKeeper } from "../TimeKeeper/TimeKeeper";
-import { TimeSquareForm } from "../TimeSquareForm/TimeSquareForm";
-
-export interface TimeSquareProps {
-    id: number;
-    key: number;
-    handleOnClickCloseButton: any;
+export interface BlankTimeSquareProps {
+    onClick: any;
 }
-export function TimeSquare({ id, key, handleOnClickCloseButton, ...props }:  TimeSquareProps) {
+export function BlankTimeSquare({ onClick, ...props }: BlankTimeSquareProps ) {
     return (
         <>
             <div
@@ -22,12 +16,11 @@ export function TimeSquare({ id, key, handleOnClickCloseButton, ...props }:  Tim
                     overflow: 'hidden',
                     alignItems: 'center'
                 }}
-                key={id}
                 className={'time-square'}
+                onClick={onClick}
             >
-                <CloseButton onClick={() => handleOnClickCloseButton(id)} />
                 {/* @ts-ignore */}
-                <TimeSquareForm></TimeSquareForm>
+                Click me!
             </div>
         </>
     )
