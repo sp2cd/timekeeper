@@ -16,7 +16,10 @@ export interface TimeSquareFormProps {
 }
 export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
     const [started, setStarted] = useState<boolean>(false);
-    const [countFrom, setCountFrom] = useState<Date>(new Date());
+    const dateNow = new Date();
+    const defaultStartTime: string = TimeUtils.getHourMinuteSecond(dateNow);
+    const [countFrom, setCountFrom] = useState<Date>(dateNow);
+    
 
     const formikOnSubmit = (values: TimeSquareFormValues, actions: any) => {
         setStarted(true);
@@ -49,7 +52,7 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
     return (
         <>
             <Formik
-                initialValues={{ name: '', startTime: new Date().toString(), elapsedTime: '' } as TimeSquareFormValues}
+                initialValues={{ name: '', startTime: defaultStartTime, elapsedTime: '' } as TimeSquareFormValues}
                 onSubmit={formikOnSubmit}
                 validate={formikValidate}
                 validateOnChange
