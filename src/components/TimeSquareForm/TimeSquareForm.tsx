@@ -5,6 +5,8 @@ import { TimeSquareFormButton } from '../TimeSquareFormButton/TimeSquareFormButt
 import _ from 'lodash';
 import { TimeUtils } from '../../util/TimeUtils';
 import { TimeKeeper } from '../TimeKeeper/TimeKeeper';
+import { StringUtils } from '../../util/StringUtils';
+import { Button } from 'react-bootstrap';
 
 export interface TimeSquareFormValues {
     name: string;
@@ -16,18 +18,21 @@ export interface TimeSquareFormProps {
 }
 export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
     const [started, setStarted] = useState<boolean>(false);
-    const dateNow = new Date();
-    const defaultStartTime: string = TimeUtils.getHourMinuteSecond(dateNow);
-    const [countFrom, setCountFrom] = useState<Date>(dateNow);
+    const [countFrom, setCountFrom] = useState<Date>(new Date());
     
+    const [initialValues, setInitialValues] = useState<TimeSquareFormValues>({
+        name: '',
+        startTime: StringUtils.trimToUndefined(localStorage.getItem('startTime')) || TimeUtils.getHourMinuteSecond(new Date())
+    } as TimeSquareFormValues);
 
-    const formikOnSubmit = (values: TimeSquareFormValues, actions: any) => {
+    const formikOnSubmit = (values: TimeSquareFormValues) => {
         setStarted(true);
         console.log('Starting the count up!', values.startTime);
         const { hours, minutes } = TimeUtils.parseTimeString(values.startTime)
         var start = new Date();
         start.setHours(hours!, minutes!);
         setCountFrom(start);
+        localStorage.setItem('startTime', values.startTime);
     }
 
     const formikValidate = (values: TimeSquareFormValues) => {
@@ -45,6 +50,15 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
         return TimeUtils.isValid24HourHHMMSS(timeString) || TimeUtils.isValid12HourHHMMSS(timeString);
     }
 
+    const resetStartTime = () => {
+        const newStartTime = TimeUtils.getHourMinuteSecond(new Date());
+        console.log('new star ttime:', newStartTime);
+        formikOnSubmit({
+            ...initialValues,
+            startTime: newStartTime
+        });
+    }
+
     useEffect(() => {
 
     }, [countFrom]);
@@ -52,7 +66,7 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
     return (
         <>
             <Formik
-                initialValues={{ name: '', startTime: defaultStartTime, elapsedTime: '' } as TimeSquareFormValues}
+                initialValues={initialValues}
                 onSubmit={formikOnSubmit}
                 validate={formikValidate}
                 validateOnChange
@@ -79,20 +93,16 @@ export function TimeSquareForm({ ...props }: TimeSquareFormProps) {
                         <TimeKeeper
                             startCountingFromThisDate={countFrom}
                         />
-                        {/* <Field
-                            disabled
-                            name="elapsedTime"
-                            placeholder="00:00:00"
-                            component={'input'}
-                            style={{
-                                textAlign: 'center',
-                                fontSize: '2.5em'
-                            }}
-                        /> */}
                         <TimeSquareFormButton
                             started={started}
                         // onClick={handleOnClick}
                         ></TimeSquareFormButton>
+                        <Button
+                            className={'btn btn-danger'}
+                            onClick={resetStartTime}
+                        >
+                            Reset
+                        </Button>
                     </Form>
                 )}
             </Formik>
